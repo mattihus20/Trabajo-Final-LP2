@@ -6,8 +6,9 @@
 - Vargas Estela, Kopeycor (20210851)
 - Palacios Arias, Mattihus (mattihus20)
 
-URL del repositorio : https://repositorio.pucp.edu.pe/index/handle/123456789/9139/recent-submissions
+Se ha trabajado con el repositorio de la Pontifice Universidad Católica del Perú de la carrera Ing. Informática
 
-Universidad Nacional Agraria La Molina
+URL: https://repositorio.pucp.edu.pe/index/handle/123456789/9139/recent-submissions
 
-Estadistica Informática
+
+
