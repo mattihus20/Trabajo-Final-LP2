@@ -96,3 +96,85 @@ for j in handle:
     if enlaces:
         href = enlaces[0]['href']
         rutas.append(href)  # imprime el valor del atributo href
+        
+        
+universidad = []
+titulo = []
+autor = []
+grado = []
+asesor = []
+resumen = []
+anio = []
+
+v = ['dc.publisher','dc.title','dc.contributor.author','thesis.degree.name','dc.contributor.advisor',
+    'dc.description.abstract','dc.date.issued']
+
+for o in rutas:
+
+    q = url2 + o
+    p = requests.get(q)
+    ss = BeautifulSoup(p.content, 'html.parser')
+    ls = ss.find_all('td', class_= 'label-cell')
+    tds = ss.find_all('td', class_= 'word-break')
+
+    m = []
+    for td in tds:
+        c = td.text
+        m.append(c)
+
+    l = []
+    for g in ls:
+        u = g.text
+        l.append(u)
+    
+    diccionario = dict(zip(l,m))
+  
+    if v[0] in diccionario:
+        universidad.append(diccionario[v[0]])
+    else:
+        universidad.append('Sin registro')
+
+    if v[1] in diccionario:
+        titulo.append(diccionario[v[1]])
+    else:
+        titulo.append('Sin registro')
+
+    if v[2] in diccionario:
+        autor.append(diccionario[v[2]])
+    else:
+        autor.append('Sin registro')
+
+    if v[3] in diccionario:
+        grado.append(diccionario[v[3]])
+    else:
+        grado.append('Sin registro')
+
+    if v[4] in diccionario:
+        asesor.append(diccionario[v[4]])
+    else:
+        asesor.append('Sin registro')
+
+    if v[5] in diccionario:
+        resumen.append(diccionario[v[5]])
+    else:
+        resumen.append('Sin registro')
+
+    if v[6] in diccionario:
+        anio.append(diccionario[v[6]])
+    else:
+        anio.append('Sin registro')
+
+        
+
+datos = {
+    'Universidad': universidad,
+    'Titulo': titulo,
+    'Autor': autor,
+    'Grado': grado,
+    'Asesor': asesor,
+    'Resumen': resumen,
+    'Año': anio
+}
+
+df = pd.DataFrame(datos)
+df.to_csv('tesis.csv', sep = ';', encoding = 'utf-8')
