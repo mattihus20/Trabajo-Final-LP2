@@ -53,3 +53,46 @@ while lista[-1] != url2:
     i += 1
 
 lista.pop(-1)
+
+## SEGUNDA PARTE DEL CÓDIGO
+
+handle = []
+
+for i in lista:
+    # URL del repositorio PUCP: tesis de Ingeniería Informática
+    url4 = i
+
+    # Hacer solicitud HTTP a la URL y obtener el contenido HTML
+    response2 = requests.get(url4)
+    html2 = response2.content
+
+    # Procesar el HTML con BeautifulSoup
+    soup2 = BeautifulSoup(html2, 'html.parser')
+
+    # Extraer todos los enlaces con la etiqueta <h4>
+    h4s = soup2.find_all('h4')
+
+    # Iterar sobre cada etiqueta <h4>
+    for h4 in h4s:
+        # Extraer el enlace de la etiqueta <a> dentro de la etiqueta <h4>
+        link = h4.find('a').get('href')
+        handle.append(link)
+
+## TERCERA PARTE DEL CÓDIGO
+
+etiquetas = []
+rutas = []
+
+for j in handle:
+    
+    # Obtén el contenido HTML de la página web
+    url5 = url2 + j
+    page3 = requests.get(url5)
+    soup3 = BeautifulSoup(page3.content, 'html.parser')
+    # Buscar todos los enlaces que tengan el texto "Show full item record"
+    enlaces = soup3.find_all('a', text='Show full item record')
+
+    # Si se encontraron enlaces, obtener el valor del atributo href del primer enlace
+    if enlaces:
+        href = enlaces[0]['href']
+        rutas.append(href)  # imprime el valor del atributo href
